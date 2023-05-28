@@ -1,0 +1,29 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+const {id} = Astro.params;
+
+const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+    .then(res => res.json())
+    .then(data => data)
+    .catch(err => console.log(err));
+
+console.log(pokemon);
+---
+
+<Layout>
+    <Header showIcon={false}>
+        <span class="ml-2 md:ml-0">{pokemon.name}</span>
+    </Header>
+    <div class="flex flex-col w-full items-center text-center">
+        <img src={pokemon.sprites.front_default} alt={pokemon.name} class="h-48"/>
+        <h4 class="text-xl">
+            Height: {pokemon.height}<br />
+            Weight: {pokemon.weight}<br />
+            Types: {pokemon.types.map(type => type.type.name).join(', ')}
+        </h4>
+    </div>
+</Layout>
+
+
+
