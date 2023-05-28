@@ -3,12 +3,18 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 const {id} = Astro.params;
 
+export async function getStaticPaths() {
+    const paths = [];
+    for (let i = 1; i <= 151; i++) {
+        paths.push({params: {id: i.toString()}});
+    }
+    return paths;
+}
+
 const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
     .then(res => res.json())
     .then(data => data)
     .catch(err => console.log(err));
-
-console.log(pokemon);
 ---
 
 <Layout>
@@ -18,8 +24,8 @@ console.log(pokemon);
     <div class="flex flex-col w-full items-center text-center">
         <img src={pokemon.sprites.front_default} alt={pokemon.name} class="h-48"/>
         <h4 class="text-xl">
-            Height: {pokemon.height}<br />
-            Weight: {pokemon.weight}<br />
+            Height: {pokemon.height}<br/>
+            Weight: {pokemon.weight}<br/>
             Types: {pokemon.types.map(type => type.type.name).join(', ')}
         </h4>
     </div>
