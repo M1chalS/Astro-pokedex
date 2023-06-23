@@ -5,7 +5,7 @@ const {id} = Astro.params;
 
 export async function getStaticPaths() {
     const paths = [];
-    for (let i = 1; i <= 151; i++) {
+    for (let i = 1; i <= 400; i++) {
         paths.push({params: {id: i.toString()}});
     }
     return paths;
