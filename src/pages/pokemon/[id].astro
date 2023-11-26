@@ -18,11 +18,11 @@ const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
 ---
 
 <Layout>
-    <Header showIcon={false}>
+    <Header>
         <span class="ml-2 md:ml-0">{pokemon.name}</span>
     </Header>
-    <div class="flex flex-col w-full items-center text-center">
-        <img src={pokemon.sprites.front_default} alt={pokemon.name} class="h-48"/>
+    <div class="flex flex-col w-full items-center text-center p-2">
+        <img src={pokemon.sprites.front_default} alt={pokemon.name} class="h-48" transition:name=`media-image-${pokemon.name}`/>
         <h4 class="text-xl">
             Height: {pokemon.height}<br/>
             Weight: {pokemon.weight}<br/>
